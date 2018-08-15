@@ -4,8 +4,7 @@
 [![codecov](https://codecov.io/gh/evil-raccoon/simple_admin/branch/master/graph/badge.svg)](https://codecov.io/gh/evil-raccoon/simple_admin)
 [![Inline docs](http://inch-ci.org/github/evil-raccoon/simple_admin.svg)](http://inch-ci.org/github/evil-raccoon/simple_admin)
 
-A framework for creating admin dashboards in an instant.
-[Try the demo][demo].
+A small API library to connect your application with SimpleAdmin service and create admin dashboards in an instant.
 
 ## Getting started
 
@@ -17,15 +16,6 @@ Add SimpleAdmin to your Gemfile and run bundle:
 gem 'simple-admin'
 ```
 
-The following generators will create an initializer and core migrations.  
-
-```ruby
-rails generate simple_admin:install
-rails generate simple_admin:migration
-
-rails db:migrate
-```
-
 After that, you need to mount simple admin built-in routes:
 
 ```ruby
@@ -35,92 +25,14 @@ Rails.application.routes.draw do
 end
 ```
 
+Create initializer, add your secret key and restart server
+
+```ruby
+# config/initializers/simpleadmin.rb
+ENV['SIMPLE_ADMIN_SECRET_KEY'] = 'SECRET_KEY'
+```
+
 Restart your server, and visit [http://localhost:3000/admin/system/entities](http://localhost:3000/admin/).
-
-### Authentication
-
-Simple admin is very flexible solution, so you can use any gem for authentication purposes, all you need to do is create `app/controllers/simple_admin/admin/application_controller.rb` and remove `current_user` and `authenticate_user!` methods with `raise NotImplemented` error and keep the following:
-
-```ruby
-# app/controllers/simple_admin/admin/application_controller.rb
-
-module SimpleAdmin
-  module Admin
-    class ApplicationController < ActionController::Base
-      layout 'simple_admin'
-
-      # use here you authentication before action  
-    end
-  end
-end
-```
-
-After that, create the following partial:
-
-```erb
-# app/views/simple_admin/admin/shared/components/_logout.html.erb
-  
-<ul class="nav-header pull-right">
-  <li>
-    <%= link_to t('simple_admin.actions.logout'), destroy_user_session_path, method: :delete %>
-  </li>
-</ul>
-```
-
-### Devise integration
-
-Simple Admin supports Devise. You need to add `gem 'devise'` to the Gemfile and run `rails generate simple_admin:install`. This will create view templates for authentication and registration, after that you need to create a layout:
-
-```erb
-# app/views/layouts/devise.html.erb
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Exampleapp</title>
-    <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'simple_admin/application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'simple_admin/application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-  <body>
-    <%= yield %>
-  </body>
-</html>
-```
-
-And add the layout to `application.rb`:
-
-```ruby
-module Exampleapp
-  class Application < Rails::Application
-    config.to_prepare do
-      Devise::SessionsController.layout 'devise'
-    end
-  end
-end
-```
-
-## Customization
-
-You have two different ways to customize admin panel entities and fields, the first way is to use the built-in generator, it automatically creates all fields for form and collection pages (excepting timestamps and id). All you need is to run the following command:
-
-```bash
-rails generate simple_admin:model_entities Post
-```
-
-The other way is to create an entity and fields for it in the administrative panel, you can do it on the entities page (http://localhost:3000/admin/system/entities).
-
-## Dependencies
-
-We try to minimize the use of third-party libraries, but Simple Admin was built using the following open source projects:
-
-Tool                  | Description
---------------------- | -----------
-[Kaminari]            | Paginator for Ruby webapps
-
-[Kaminari]: https://github.com/kaminari/kaminari
 
 ## Contributing
 
@@ -130,12 +42,8 @@ Tool                  | Description
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-[CanCanCan]: https://github.com/CanCanCommunity/cancancan
-
 ## Copyright
 
 Released under MIT License.
 
 Copyright © 2018 Evil Raccoon.
-
-[demo]: https://simpleadmin.herokuapp.com
