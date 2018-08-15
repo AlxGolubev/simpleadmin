@@ -10,21 +10,16 @@ module ActionDispatch::Routing
     #     mount_for_simple_admin
     #   end
     #
-    # @since 0.1.2-alpha
+    # @since 1.0.0
 
     def mount_for_simple_admin
-      scope module: :simple_admin do
-        namespace :admin do
-          root 'system/entities#index'
+      namespace :api do
+        namespace :v1 do
+          namespace :simple_admin do
+            resources :entities,  only: [:index, :show]
+            resources :resources
 
-          get :search, to: 'search#index'
-
-          SimpleAdmin.mount_entities!(self) if ActiveRecord::Base.connection.table_exists?(:simple_admin_entities)
-
-          namespace :system do
-            resources :entities
-            resources :entity_field_types
-            resources :entity_fields, only: %i[create update destroy]
+            post 'verify_key' => 'credentials#verify_key'
           end
         end
       end

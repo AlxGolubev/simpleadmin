@@ -1,3 +1,3 @@
 module SimpleAdmin
-  VERSION = '0.2.0-alpha'.freeze
+  VERSION = '1.0.0'.freeze
 end
