@@ -32,8 +32,6 @@ Create initializer, add your secret key and restart server
 ENV['SIMPLE_ADMIN_SECRET_KEY'] = 'SECRET_KEY'
 ```
 
-Restart your server, and visit [http://localhost:3000/admin/system/entities](http://localhost:3000/admin/).
-
 ## Contributing
 
 1. Fork it ( https://github.com/evil-raccoon/simple_admin/fork )
