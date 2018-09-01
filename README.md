@@ -4,6 +4,8 @@
 [![codecov](https://codecov.io/gh/evil-raccoon/simple_admin/branch/master/graph/badge.svg)](https://codecov.io/gh/evil-raccoon/simple_admin)
 [![Inline docs](http://inch-ci.org/github/evil-raccoon/simple_admin.svg)](http://inch-ci.org/github/evil-raccoon/simple_admin)
 
+https://getsimpleadmin.com
+
 A small API library to connect your application with SimpleAdmin service and create admin dashboards in an instant.
 
 ## Getting started
