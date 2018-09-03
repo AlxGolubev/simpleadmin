@@ -27,11 +27,7 @@ module Api::V1
           resource.attributes.each do |attribute_name, attribute_value|
             next unless model_fields.include?(attribute_name)
 
-            if params[:model_fields].find { |field_attributes| field_attributes[:field_name] == attribute_name && field_attributes[:field_type] == 'image' }.present?
-              _resource[attribute_name] = "#{ENV['HOST']}/#{resource.public_send(attribute_name).url}"
-            else
-              _resource[attribute_name] = attribute_value
-            end
+            _resource[attribute_name] = attribute_value
           end
 
           _resource
