@@ -45,7 +45,7 @@ module Api::V1
 
       def show
         model_klass = params[:model_klass_name].constantize
-        model_fields = params[:model_fields].split(',')
+        model_fields = params[:model_fields]
 
         resource = model_klass.find(params[:id]).attributes.slice(*model_fields)
 
